@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/hossam-k/rails-signup-thankyou/tree/master.svg?style=svg)](https://circleci.com/gh/hossam-k/rails-signup-thankyou/tree/master)
+
 Rails Signup Thankyou
 ================
 

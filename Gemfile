@@ -11,6 +11,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 3.7'
+  gem 'rspec_junit_formatter', '~> 0.2.3'
 end
 group :development do
   gem 'web-console', '>= 3.3.0'
