@@ -38,7 +38,11 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/ruby:2.5.1-node-browsers
-
+    environment:
+      RAILS_ENV: test
+      BUNDLE_PATH: vendor/bundle
+      BUNDLE_RETRY: 3
+      BUNDLE_JOBS: 3
     steps:
       # Download and cache dependencies
       - checkout
