@@ -63,7 +63,6 @@ jobs:
       - run:
           name: Run Rubocop
           command: rubocop
-
   test:
     working_directory: ~/rails-signup-thankyou
     docker:
@@ -116,6 +115,9 @@ workflows:
   build_and_test: # name of your workflow
     jobs:
       - build
-      - test:
+      - lint:
             requires:
               - build
+      - test:
+            requires:
+              - lint
