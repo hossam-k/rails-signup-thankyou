@@ -62,7 +62,7 @@ jobs:
           command: bundle check --path vendor/bundle || bundle install --deployment
       - run:
           name: Run Rubocop
-          command: rubocop
+          command: bundle exec rubocop
   test:
     working_directory: ~/rails-signup-thankyou
     docker:
