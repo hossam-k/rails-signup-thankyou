@@ -39,6 +39,30 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+  lint:
+    working_directory: ~/rails-signup-thankyou
+    docker:
+      # specify the version you desire here
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+    steps:
+      # Download and cache dependencies
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Check Gems
+          command: bundle check --path vendor/bundle || bundle install --deployment
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
   test:
     working_directory: ~/rails-signup-thankyou
     docker:
@@ -64,6 +88,7 @@ jobs:
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
+
 
       # run tests!
       - run:
@@ -91,6 +116,9 @@ workflows:
   build_and_test: # name of your workflow
     jobs:
       - build
-      - test:
+      - lint:
             requires:
               - build
+      - test:
+            requires:
+              - lint
